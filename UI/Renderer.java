@@ -23,4 +23,9 @@ public class Renderer
         frame.setLocationRelativeTo(null); // Centers the window on screen
         frame.setVisible(true);
     }
+
+    public void drawBoard()
+    {
+        panel.repaint();
+    }
 }

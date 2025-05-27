@@ -9,6 +9,6 @@ public class Game
 
     public void start()
     {
-        
+        render.drawBoard();
     }
 }
