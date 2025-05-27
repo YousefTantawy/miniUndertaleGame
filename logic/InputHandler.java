@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 public class InputHandler extends KeyAdapter
 {
 
-    private Direction lastDirection;
+    private Direction lastDirection = Direction.NULL;
 
     @Override
     public void keyPressed(KeyEvent e) 
@@ -29,10 +29,14 @@ public class InputHandler extends KeyAdapter
                 System.out.println("S");
                 lastDirection = Direction.DOWN;
                 break;
+            default:
+                lastDirection = Direction.NULL;
+                break;
         }
     }
 
-    public Direction getLastDirection() {
+    public Direction getLastDirection() 
+    {
         return lastDirection;
     }
 }
