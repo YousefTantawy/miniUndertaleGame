@@ -14,19 +14,15 @@ public class InputHandler extends KeyAdapter
         switch (e.getKeyCode()) 
         {
             case KeyEvent.VK_A:
-                System.out.println("A");
                 lastDirection = Direction.LEFT;
                 break;
             case KeyEvent.VK_D:
-                System.out.println("D");
                 lastDirection = Direction.RIGHT;
                 break;
             case KeyEvent.VK_W:
-                System.out.println("W");
                 lastDirection = Direction.UP;
                 break;
             case KeyEvent.VK_S:
-                System.out.println("S");
                 lastDirection = Direction.DOWN;
                 break;
             default:

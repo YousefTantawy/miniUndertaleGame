@@ -9,29 +9,39 @@ import javax.imageio.ImageIO;
 
 
 import miniUndertaleGame.logic.InputHandler;
+import miniUndertaleGame.game.Game;
+import miniUndertaleGame.logic.Coordinates;
 import miniUndertaleGame.logic.Direction;
+import miniUndertaleGame.logic.ProjectileHandler;
+import miniUndertaleGame.logic.Projectile;
 
 public class myPanel extends JPanel 
 {
-    private BufferedImage heart, blockerVert, blockerHorz;
-    int heartX, heartY, blockerX, blockerY;
-    Direction direction;
+    private BufferedImage heartImag, blockerVertImag, blockerHorzImag, bulletImag;
+    private Coordinates heartCoor = new Coordinates(0, 0), blockerCoor = new Coordinates(0, 0);
+    private Direction direction;
+    private final InputHandler input;
+    private final ProjectileHandler projectile;
 
-    public myPanel(InputHandler input) 
+    public myPanel(InputHandler input, ProjectileHandler projectile) 
     {
         setPreferredSize(new Dimension(Renderer.panelWidth, Renderer.panelHeight));
         setFocusable(true);
         addKeyListener(input);
         requestFocusInWindow();
+        this.input = input;
+        this.projectile = projectile;
 
         try 
         {
-            heart = ImageIO.read(
+            heartImag = ImageIO.read(
                 new File("logos/logo.png"));
-            blockerHorz = ImageIO.read(
+            blockerHorzImag = ImageIO.read(
                 new File("logos/blockerHorz.png"));
-            blockerVert = ImageIO.read(
+            blockerVertImag = ImageIO.read(
                 new File("logos/blockerVert.png"));
+            bulletImag = ImageIO.read(
+                new File("logos/projectile.png"));
         }
         catch (IOException e) 
         {
@@ -39,49 +49,63 @@ public class myPanel extends JPanel
         }
     }
 
+    public void blockerDrawing(Graphics g)
+    {
+        // Blocker drawing based on direction
+        if (blockerVertImag != null && input.getLastDirection() == Direction.LEFT) 
+        {
+            blockerCoor.setX(heartCoor.getX() - blockerVertImag.getWidth() - 20); // to the left of the heart
+            blockerCoor.setY(heartCoor.getY() + (heartImag.getHeight() - blockerVertImag.getHeight()) / 2);
+            g.drawImage(blockerVertImag, blockerCoor.getX(), blockerCoor.getY(), this);
+        } 
+        else if (blockerVertImag != null && input.getLastDirection() == Direction.RIGHT) 
+        {
+            blockerCoor.setX(heartCoor.getX() + heartImag.getWidth() + 20); // to the right of the heart
+            blockerCoor.setY(heartCoor.getY() + (heartImag.getHeight() - blockerVertImag.getHeight()) / 2);
+            g.drawImage(blockerVertImag, blockerCoor.getX(), blockerCoor.getY(), this);
+        } 
+        else if (blockerHorzImag != null && input.getLastDirection() == Direction.UP) 
+        {
+            blockerCoor.setX(heartCoor.getX() + (heartImag.getWidth() - blockerHorzImag.getWidth()) / 2);
+            blockerCoor.setY(heartCoor.getY() - blockerHorzImag.getHeight() - 20); // above the heart
+            g.drawImage(blockerHorzImag, blockerCoor.getX(), blockerCoor.getY(), this);
+        } 
+        else if (blockerHorzImag != null && input.getLastDirection() == Direction.DOWN) 
+        {
+            blockerCoor.setX(heartCoor.getX() + (heartImag.getWidth() - blockerHorzImag.getWidth()) / 2);
+            blockerCoor.setY(heartCoor.getY() + heartImag.getHeight() + 20); // below the heart
+            g.drawImage(blockerHorzImag, blockerCoor.getX(), blockerCoor.getY(), this);
+        }
+    }
+
+    public void projectileDrawing(Graphics g)
+    {
+        for (Projectile p : projectile.getList()) 
+        {
+            if (bulletImag != null)
+                p.setX(p.getX() + 10);
+                p.setY(p.getY() + 10);
+                g.drawImage(bulletImag, p.getX(), p.getY(), this);
+        }
+    }
+
     @Override
     protected void paintComponent(Graphics g) 
     {
         super.paintComponent(g);
-        heartX = (getWidth() - heart.getWidth()) / 2;
-        heartY = (getHeight() - heart.getHeight()) / 2;
-
-        // Heart image
-        if (heart != null) 
+        
+        // heart image
+        if (heartImag != null) 
         {
+            heartCoor.setX((this.getWidth() - heartImag.getWidth()) / 2);
+            heartCoor.setY((this.getHeight() - heartImag.getHeight()) / 2);
             g.setColor(Color.BLACK);
-            g.fillRect(0, 0, getWidth(), getHeight());
-            g.drawImage(heart, heartX, heartY, this);
+            g.fillRect(0, 0, this.getWidth(), this.getHeight());
+            g.drawImage(heartImag, heartCoor.getX(), heartCoor.getY(), this);
         }
 
-        // Blocker drawing based on direction
-        if (blockerVert != null && Renderer.isDrawLeftBlock) 
-        {
-            int blockerX = heartX - blockerVert.getWidth(); // to the left of the heart
-            int blockerY = heartY + (heart.getHeight() - blockerVert.getHeight()) / 2;
-            g.drawImage(blockerVert, blockerX, blockerY, this);
-            Renderer.isDrawLeftBlock = false;
-        } 
-        else if (blockerVert != null && Renderer.isDrawRightBlock) 
-        {
-            int blockerX = heartX + heart.getWidth(); // to the right of the heart
-            int blockerY = heartY + (heart.getHeight() - blockerVert.getHeight()) / 2;
-            g.drawImage(blockerVert, blockerX, blockerY, this);
-            Renderer.isDrawRightBlock = false;
-        } 
-        else if (blockerHorz != null && Renderer.isDrawUpperBlock) 
-        {
-            int blockerX = heartX + (heart.getWidth() - blockerHorz.getWidth()) / 2;
-            int blockerY = heartY - blockerHorz.getHeight(); // above the heart
-            g.drawImage(blockerHorz, blockerX, blockerY, this);
-            Renderer.isDrawUpperBlock = false;
-        } 
-        else if (blockerHorz != null && Renderer.isDrawLowerBlock) 
-        {
-            int blockerX = heartX + (heart.getWidth() - blockerHorz.getWidth()) / 2;
-            int blockerY = heartY + heart.getHeight(); // below the heart
-            g.drawImage(blockerHorz, blockerX, blockerY, this);
-            Renderer.isDrawLowerBlock = false;
-        }
+        blockerDrawing(g);
+        
+        projectileDrawing(g);
     }
 }
