@@ -22,6 +22,8 @@ public class myPanel extends JPanel
     private Direction direction;
     private final InputHandler input;
     private final ProjectileHandler projectile;
+    public static int projectileWidth;
+    public static int projectileHeight;
 
     public myPanel(InputHandler input, ProjectileHandler projectile) 
     {
@@ -42,6 +44,8 @@ public class myPanel extends JPanel
                 new File("logos/blockerVert.png"));
             bulletImag = ImageIO.read(
                 new File("logos/projectile.png"));
+            projectileWidth = bulletImag.getWidth();
+            projectileHeight = bulletImag.getHeight();
         }
         catch (IOException e) 
         {
@@ -83,9 +87,7 @@ public class myPanel extends JPanel
         for (Projectile p : projectile.getList()) 
         {
             if (bulletImag != null)
-                p.setX(p.getX() + 10);
-                p.setY(p.getY() + 10);
-                g.drawImage(bulletImag, p.getX(), p.getY(), this);
+                g.drawImage(bulletImag, p.getCoor().getX(), p.getCoor().getY(), this);
         }
     }
 

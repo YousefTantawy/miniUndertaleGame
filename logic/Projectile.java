@@ -1,28 +1,35 @@
 package miniUndertaleGame.logic;
 
-import miniUndertaleGame.logic.Coordinates;
-
 public class Projectile 
 {
-    private Coordinates projectilePos = new Coordinates(0, 0);
+    private Coordinates projectilePos;
     private Direction projectileDir;
+    private int projectileSpeed;
 
-    public Projectile(Direction direction)
+    public Projectile(Direction direction, int speed, Coordinates startPos)
     {
-        projectileDir = direction;
+        this.projectileDir = direction;
+        this.projectileSpeed = speed;
+        this.projectilePos = startPos;
     }
 
-    public int getX() {
-        return projectilePos.getX();
-    }
-    public int getY() {
-        return projectilePos.getY();
+    public Coordinates getCoor()
+    {
+        return projectilePos;
     }
 
-    public void setX(int x) {
-    projectilePos.setX(x);
+    public Direction getDirection()
+    {
+        return projectileDir;
     }
-    public void setY(int y) {
-        projectilePos.setY(y);
+
+    public void setSpeed(int speed)
+    {
+        this.projectileSpeed = speed;
+    }
+
+    public int getSpeed()
+    {
+        return projectileSpeed; 
     }
 }

@@ -48,11 +48,12 @@ public class Game
                     // Always update Swing components on the EDT:
                     SwingUtilities.invokeLater(() -> {
                         projectile.bulletCreation();
+                        projectile.updatePosition();
                     });
                 }
             }, 
             0, 
-            300);
+            70);
         });
     }
 }
