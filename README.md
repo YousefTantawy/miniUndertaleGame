@@ -2,7 +2,8 @@
 
 1. [Desc](#desc)  
 2. [How to Run](#how-to-run)  
-3. [Upcoming Updates](#upcoming-updates)
+3. [Project Structure](#project-structure)
+4. [Upcoming Updates](#upcoming-updates)
 
 ---
 
@@ -12,31 +13,31 @@ This project is a Java-based recreation of the **Undyne battle** from the hit in
 
 Built with **Java Swing**, this version features real-time movement, basic collision detection, and dynamic projectile spawning.
 
-Project tree:
-    project-root/
-    ├── game/
-    │   └── Game.java
-    │
-    ├── logic/
-    │   ├── CollisionDetector.java
-    │   ├── Coordinates.java
-    │   ├── Direction.java
-    │   ├── InputHandler.java
-    │   ├── Projectile.java
-    │   └── ProjectileHandler.java
-    │
-    ├── logos/
-    │   ├── blockerHorz.png
-    │   ├── blockerVert.png
-    │   ├── logo.png
-    │   └── projectile.png
-    │
-    ├── UI/
-    │   ├── myPanel.java
-    │   └── Renderer.java
-    │
-    ├── Main.java
-    └── README.md
+## 📁 Project Structure
+
+```
+project-root/
+├── game/
+│   └── Game.java
+├── logic/
+│   ├── CollisionDetector.java
+│   ├── Coordinates.java
+│   ├── Direction.java
+│   ├── InputHandler.java
+│   ├── Projectile.java
+│   └── ProjectileHandler.java
+├── logos/
+│   ├── blockerHorz.png
+│   ├── blockerVert.png
+│   ├── logo.png
+│   └── projectile.png
+├── UI/
+│   ├── myPanel.java
+│   └── Renderer.java
+├── Main.java
+└── README.md
+```
+
 
 ---
 
