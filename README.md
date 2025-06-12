@@ -27,5 +27,9 @@ From the root directory of the project, use the following commands:
 ```bash
 javac -d Out -cp .\Main.java .\game\* .\logic\* .\UI\*
 java -cp Out Main
-
+```
 ## Upcoming updates
+
+1. Future optimizations to code
+2. Add score manager system
+3. Add life system
