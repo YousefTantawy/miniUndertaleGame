@@ -1,8 +1,8 @@
 # ⚔️ Undertale Undyne Fight Recreation
 
 1. [Desc](#desc)  
-2. [How to Run](#how-to-run)  
-3. [Project Structure](#project-structure)
+2. [Project Structure](#project-structure)
+3. [How to Run](#how-to-run)  
 4. [Upcoming Updates](#upcoming-updates)
 
 ---
@@ -13,7 +13,7 @@ This project is a Java-based recreation of the **Undyne battle** from the hit in
 
 Built with **Java Swing**, this version features real-time movement, basic collision detection, and dynamic projectile spawning.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 project-root/
@@ -37,9 +37,6 @@ project-root/
 ├── Main.java
 └── README.md
 ```
-
-
----
 
 ## How to Run
 
