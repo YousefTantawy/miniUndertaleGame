@@ -1,8 +1,8 @@
 # ⚔️ Undertale Undyne Fight Recreation
 
 1. [Desc](#Desc)  
-2. [How To Run](#How to Run)
-3. [Upcoming updates](#Upcoming updates)
+2. [HowToRun](#How to Run)
+3. [Upcomingupdates](#Upcoming updates)
 
 
 ## Desc
@@ -19,7 +19,7 @@ ui
 ---
 
 ## How to Run
-thi
+
 From the root directory of the project, use the following commands:
 
 ```bash```
