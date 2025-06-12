@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import javax.swing.SwingUtilities;
 
 import miniUndertaleGame.UI.*;
+import miniUndertaleGame.logic.CollisionDetector;
 
 public class Game 
 {
@@ -31,16 +32,61 @@ public class Game
 
             // 2) Then schedule your fixed‐rate game loop:
             gameTimer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    // Always update Swing components on the EDT:
-                    SwingUtilities.invokeLater(() -> {
-                        render.render();
-                    });
+    @Override
+    public void run() {
+        SwingUtilities.invokeLater(() -> {
+            render.render();
+
+            for (int i = 0; i < projectile.getList().size(); i++) {
+                if (CollisionDetector.isCollide(
+                        projectile.getList().get(i).getCoor().getX(),
+                        projectile.getList().get(i).getCoor().getY(),
+                        myPanel.getProjectileWidth(),
+                        myPanel.getProjectileHeight(),
+                        myPanel.getHeartX(),
+                        myPanel.getHeartY(),
+                        myPanel.getHeartWidth(),
+                        myPanel.getHeartHeight())) {
+
+                    System.out.println("Heart is hit");
+                    projectile.getList().remove(i);
+                    i--;
                 }
-            }, 
-            0, 
-            17);
+
+                else if (
+                    CollisionDetector.isCollide(
+                        projectile.getList().get(i).getCoor().getX(),
+                        projectile.getList().get(i).getCoor().getY(),
+                        myPanel.getProjectileWidth(),
+                        myPanel.getProjectileHeight(),
+                        myPanel.getBlockerX(),
+                        myPanel.getBlockerY(),
+                        myPanel.getBlockerVertWidth(),
+                        myPanel.getBlockerVertHeight()
+                    ) ||
+
+                    CollisionDetector.isCollide(
+                        projectile.getList().get(i).getCoor().getX(),
+                        projectile.getList().get(i).getCoor().getY(),
+                        myPanel.getProjectileWidth(),
+                        myPanel.getProjectileHeight(),
+                        myPanel.getBlockerX(),
+                        myPanel.getBlockerY(),
+                        myPanel.getBlockerHorzWidth(),
+                        myPanel.getBlockerHorzHeight()
+                    )) {
+
+                    System.out.println("Guard is hit");
+                    projectile.getList().remove(i);
+                    i--;
+                }
+            }
+        });
+    }
+}, 
+0, 
+17);
+
 
             projectileTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -53,7 +99,7 @@ public class Game
                 }
             }, 
             0, 
-            70);
+            570);
         });
     }
 }

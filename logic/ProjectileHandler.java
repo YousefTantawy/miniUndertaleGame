@@ -20,7 +20,7 @@ public class ProjectileHandler
     public void bulletCreation() 
 {
     dirDecision = rand.nextInt(4); // 0=UP, 1=DOWN, 2=LEFT, 3=RIGHT
-    randSpeed = rand.nextInt(5) + 3;
+    randSpeed = rand.nextInt(20) + 3;
     Direction direction = Direction.values()[dirDecision];
 
     // Initialize coordinates based on direction
@@ -29,20 +29,20 @@ public class ProjectileHandler
     switch (direction) 
     {
         case UP:
-            x = (Renderer.panelWidth - myPanel.projectileWidth) / 2;
+            x = (Renderer.panelWidth - myPanel.getProjectileWidth()) / 2;
             y = Renderer.panelHeight; // Start from bottom, move up
             break;
         case DOWN:
-            x = (Renderer.panelWidth - myPanel.projectileWidth) / 2;
+            x = (Renderer.panelWidth - myPanel.getProjectileWidth()) / 2;
             y = 0; // Start from top, move down
             break;
         case LEFT:
             x = Renderer.panelWidth;
-            y = (Renderer.panelHeight - myPanel.projectileHeight) / 2; // Start from right, move left
+            y = (Renderer.panelHeight - myPanel.getProjectileHeight()) / 2; // Start from right, move left
             break;
         case RIGHT:
             x = 0;
-            y = (Renderer.panelHeight - myPanel.projectileHeight) / 2; // Start from left, move right
+            y = (Renderer.panelHeight - myPanel.getProjectileHeight()) / 2; // Start from left, move right
             break;
         case NULL:
             break;
@@ -51,7 +51,7 @@ public class ProjectileHandler
     Coordinates start = new Coordinates(x, y);
     projectileList.add(new Projectile(direction, randSpeed, start));
 
-    System.out.println("Projectile fired! Direction: " + direction + ", Speed: " + randSpeed);
+    //System.out.println("Projectile fired! Direction: " + direction + ", Speed: " + randSpeed);
 }
     public void updatePosition()
     {

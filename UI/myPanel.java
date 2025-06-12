@@ -14,18 +14,23 @@ import miniUndertaleGame.logic.Coordinates;
 import miniUndertaleGame.logic.Direction;
 import miniUndertaleGame.logic.ProjectileHandler;
 import miniUndertaleGame.logic.Projectile;
+import java.util.Iterator;
 
 public class myPanel extends JPanel 
 {
     private BufferedImage heartImag, blockerVertImag, blockerHorzImag, bulletImag;
-    private Coordinates heartCoor = new Coordinates(0, 0), blockerCoor = new Coordinates(0, 0);
+    private static Coordinates heartCoor = new Coordinates(0, 0), blockerCoor = new Coordinates(0, 0);
+    
     private Direction direction;
     private final InputHandler input;
     private final ProjectileHandler projectile;
-    public static int projectileWidth;
-    public static int projectileHeight;
 
-    public myPanel(InputHandler input, ProjectileHandler projectile) 
+    private static int projectileWidth, projectileHeight;
+    private static int heartWidth, heartHeight;
+    private static int blockerHorzWidth, blockerHorzHeight;
+    private static int blockerVertWidth, blockerVertHeight;
+
+      public myPanel(InputHandler input, ProjectileHandler projectile) 
     {
         setPreferredSize(new Dimension(Renderer.panelWidth, Renderer.panelHeight));
         setFocusable(true);
@@ -36,14 +41,19 @@ public class myPanel extends JPanel
 
         try 
         {
-            heartImag = ImageIO.read(
-                new File("logos/logo.png"));
-            blockerHorzImag = ImageIO.read(
-                new File("logos/blockerHorz.png"));
-            blockerVertImag = ImageIO.read(
-                new File("logos/blockerVert.png"));
-            bulletImag = ImageIO.read(
-                new File("logos/projectile.png"));
+            heartImag = ImageIO.read(new File("logos/logo.png"));
+            heartWidth = heartImag.getWidth();
+            heartHeight = heartImag.getHeight();
+
+            blockerHorzImag = ImageIO.read(new File("logos/blockerHorz.png"));
+            blockerHorzWidth = blockerHorzImag.getWidth();
+            blockerHorzHeight = blockerHorzImag.getHeight();
+
+            blockerVertImag = ImageIO.read(new File("logos/blockerVert.png"));
+            blockerVertWidth = blockerVertImag.getWidth();
+            blockerVertHeight = blockerVertImag.getHeight();
+
+            bulletImag = ImageIO.read(new File("logos/projectile.png"));
             projectileWidth = bulletImag.getWidth();
             projectileHeight = bulletImag.getHeight();
         }
@@ -107,7 +117,57 @@ public class myPanel extends JPanel
         }
 
         blockerDrawing(g);
-        
         projectileDrawing(g);
+
+        
+    }
+
+    // Getters 
+    public static int getHeartWidth() {
+        return heartWidth;
+    }
+
+    public static int getHeartHeight() {
+        return heartHeight;
+    }
+
+    public static int getHeartX() {
+        return heartCoor.getX();
+    }
+
+    public static int getHeartY() {
+        return heartCoor.getY();
+    }
+
+    public static int getBlockerX() {
+        return blockerCoor.getX();
+    }
+
+    public static int getBlockerY() {
+        return blockerCoor.getY();
+    }
+
+    public static int getBlockerHorzWidth() {
+        return blockerHorzWidth;
+    }
+
+    public static int getBlockerHorzHeight() {
+        return blockerHorzHeight;
+    }
+
+    public static int getBlockerVertWidth() {
+        return blockerVertWidth;
+    }
+
+    public static int getBlockerVertHeight() {
+        return blockerVertHeight;
+    }
+
+    public static int getProjectileWidth() {
+        return projectileWidth;
+    }
+
+    public static int getProjectileHeight() {
+        return projectileHeight;
     }
 }
