@@ -1,17 +1,26 @@
 # ⚔️ Undertale Undyne Fight Recreation
 
-1. [Desc](#desc)  
+1. [Description](#description)  
 2. [Project Structure](#project-structure)
 3. [How to Run](#how-to-run)  
 4. [Upcoming Updates](#upcoming-updates)
 
 ---
 
-## Desc
+## Description
 
-This project is a Java-based recreation of the **Undyne battle** from the hit indie game **Undertale**, originally developed by Toby Fox. The game mimics the iconic fight mechanics, focusing on dodging projectiles and blocking attacks with directional shields — staying true to the fast-paced bullet-hell style gameplay.
+This project is a Java-based recreation of the **Undyne battle** from the indie game **Undertale** (by Toby Fox).  
+It mimics the iconic fight mechanics: dodging projectiles and blocking attacks with directional shields, in a fast-paced bullet-hell style.
 
-Built with **Java Swing**, this version features real-time movement, basic collision detection, and dynamic projectile spawning.
+**Features:**
+- Dynamic projectile spawning
+- Directional shield blocking
+- **Background music** (Undyne's theme)
+- Simple one-click build & run with `run.bat`
+
+Built with **Java Swing**.
+
+---
 
 ## Project Structure
 
@@ -31,23 +40,41 @@ project-root/
 │   ├── blockerVert.png
 │   ├── logo.png
 │   └── projectile.png
+├── music/
+│   ├── MusicPlayer.java
+│   └── undyneOST.wav
 ├── UI/
 │   ├── myPanel.java
 │   └── Renderer.java
 ├── Main.java
+├── run.bat
 └── README.md
 ```
 
+---
+
 ## How to Run
 
-From the root directory of the project, use the following commands:
+**No need to use terminal commands!**
 
-```bash
-javac -d Out -cp .\Main.java .\game\* .\logic\* .\UI\*
-java -cp Out Main
-```
-## Upcoming updates
+Just double-click `run.bat` (or run it from the terminal) in the project root folder.  
+This will:
+- Clean previous builds
+- Compile all Java files
+- Copy all resources (music, images)
+- Launch the game
 
-1. Future optimizations to code
+**Requirements:**  
+- Java 8 or higher installed
+
+---
+
+## Upcoming Updates
+
+1. Future code optimizations
 2. Add score manager system
 3. Add life system
+
+---
+
+*Inspired by Undertale, by Toby Fox.*
