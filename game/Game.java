@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import javax.swing.SwingUtilities;
 
 import miniUndertaleGame.UI.*;
+import miniUndertaleGame.logic.CollisionDetector;
 
 public class Game 
 {
