@@ -7,7 +7,7 @@ public class MusicPlayer {
 
     public void play(String resourcePath, boolean loop) {
         try {
-            // Carga el archivo como recurso desde el classpath
+            // Close any existing clip before starting a new one
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(
                 getClass().getClassLoader().getResourceAsStream(resourcePath)
             );
