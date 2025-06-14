@@ -2,6 +2,7 @@ package miniUndertaleGame.game;
 
 //import miniUndertaleGame.*;
 import miniUndertaleGame.logic.*;
+import miniUndertaleGame.music.MusicPlayer;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,6 +16,8 @@ public class Game
     InputHandler input;
     ProjectileHandler projectile;
     Renderer render; 
+    MusicPlayer musicPlayer;
+
     private final Timer gameTimer = new Timer("Game-Loop", true);
     private final Timer projectileTimer = new Timer("Projectile-spawn", true);
 
@@ -28,6 +31,9 @@ public class Game
     {
         // 1) First, create your UI on the EDT:
         SwingUtilities.invokeLater(() -> {
+            musicPlayer = new MusicPlayer();
+            musicPlayer.play("miniUndertaleGame/music/undyneOST.wav", true);
+
             render = new Renderer(input, projectile);
 
             // 2) Then schedule your fixed‐rate game loop:
