@@ -3,13 +3,13 @@ package miniUndertaleGame.logic;
 public class CollisionDetector 
 {
     public static boolean isCollide(
-        int rect1X, int rect1Y, int rect1Width, int rect1Height,
-        int rect2X, int rect2Y, int rect2Width, int rect2Height
+        int projectille1X, int projectille1Y, int projectille1Width, int projectille1Height,
+        int projectille2X, int projectille2Y, int projectille2Width, int projectille2Height
     ) 
     {
-        return rect1X < rect2X + rect2Width &&
-               rect1X + rect1Width > rect2X &&
-               rect1Y < rect2Y + rect2Height &&
-               rect1Y + rect1Height > rect2Y;
+        return projectille1X < projectille2X + projectille2Width &&
+               projectille1X + projectille1Width > projectille2X &&
+               projectille1Y < projectille2Y + projectille2Height &&
+               projectille1Y + projectille1Height > projectille2Y;
     }    
 }

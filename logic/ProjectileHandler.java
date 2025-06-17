@@ -20,7 +20,7 @@ public class ProjectileHandler
     public void bulletCreation() 
 {
     dirDecision = rand.nextInt(4); // 0=UP, 1=DOWN, 2=LEFT, 3=RIGHT
-    randSpeed = rand.nextInt(20) + 3;
+    randSpeed = rand.nextInt(15) + 3;
     Direction direction = Direction.values()[dirDecision];
 
     // Initialize coordinates based on direction

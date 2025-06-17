@@ -13,6 +13,8 @@ import miniUndertaleGame.logic.CollisionDetector;
 
 public class Game 
 {
+    public static int scoreCount = 0, livesCount = 3;
+    public static boolean gameOver;
     InputHandler input;
     ProjectileHandler projectile;
     Renderer render; 
@@ -32,66 +34,79 @@ public class Game
         // 1) First, create your UI on the EDT:
         SwingUtilities.invokeLater(() -> {
             musicPlayer = new MusicPlayer();
-            musicPlayer.play("miniUndertaleGame/music/undyneOST.wav", true);
+            musicPlayer.play("miniUndertaleGame/music/undyneOSTNormalVer.wav", true);
 
             render = new Renderer(input, projectile);
 
             // 2) Then schedule your fixed‐rate game loop:
             gameTimer.scheduleAtFixedRate(new TimerTask() {
-    @Override
-    public void run() {
-        SwingUtilities.invokeLater(() -> {
-            render.render();
+        @Override
+        public void run() {
+            SwingUtilities.invokeLater(() -> {
+                gameOver = (livesCount == 0);
+                render.render();
+                if(!gameOver)
+                    for (int i = 0; i < projectile.getList().size(); i++) {
+                        if (CollisionDetector.isCollide(
+                                projectile.getList().get(i).getCoor().getX(),
+                                projectile.getList().get(i).getCoor().getY(),
+                                myPanel.getProjectileWidth(),
+                                myPanel.getProjectileHeight(),
+                                myPanel.getHeart().getX(),
+                                myPanel.getHeart().getY(),
+                                myPanel.getHeartWidth(),
+                                myPanel.getHeartHeight())) {
 
-            for (int i = 0; i < projectile.getList().size(); i++) {
-                if (CollisionDetector.isCollide(
-                        projectile.getList().get(i).getCoor().getX(),
-                        projectile.getList().get(i).getCoor().getY(),
-                        myPanel.getProjectileWidth(),
-                        myPanel.getProjectileHeight(),
-                        myPanel.getHeartX(),
-                        myPanel.getHeartY(),
-                        myPanel.getHeartWidth(),
-                        myPanel.getHeartHeight())) {
+                            System.out.println("Heart is hit");
+                            livesCount--;
+                            projectile.getList().remove(i);
+                            i--;
+                        }
 
-                    System.out.println("Heart is hit");
-                    projectile.getList().remove(i);
-                    i--;
+                        else if (
+                            CollisionDetector.isCollide(
+                                projectile.getList().get(i).getCoor().getX(),
+                                projectile.getList().get(i).getCoor().getY(),
+                                myPanel.getProjectileWidth(),
+                                myPanel.getProjectileHeight(),
+                                myPanel.getBlocker().getX(),
+                                myPanel.getBlocker().getY(),
+                                myPanel.getBlockerVertWidth(),
+                                myPanel.getBlockerVertHeight()
+                            ) 
+                            ||
+                            CollisionDetector.isCollide(
+                                projectile.getList().get(i).getCoor().getX(),
+                                projectile.getList().get(i).getCoor().getY(),
+                                myPanel.getProjectileWidth(),
+                                myPanel.getProjectileHeight(),
+                                myPanel.getBlocker().getX(),
+                                myPanel.getBlocker().getY(),
+                                myPanel.getBlockerHorzWidth(),
+                                myPanel.getBlockerHorzHeight()
+                            )) {
+
+                            System.out.println("Guard is hit");
+                            scoreCount++;
+                            projectile.getList().remove(i);
+                            i--;
+                        }
+                    }
+                else
+                {
+                    musicPlayer.stop();
+                    musicPlayer.play("miniUndertaleGame/music/gameOver.wav", false);
+
+                    gameTimer.cancel();
+                    projectileTimer.cancel();
+
+                    return;
                 }
-
-                else if (
-                    CollisionDetector.isCollide(
-                        projectile.getList().get(i).getCoor().getX(),
-                        projectile.getList().get(i).getCoor().getY(),
-                        myPanel.getProjectileWidth(),
-                        myPanel.getProjectileHeight(),
-                        myPanel.getBlockerX(),
-                        myPanel.getBlockerY(),
-                        myPanel.getBlockerVertWidth(),
-                        myPanel.getBlockerVertHeight()
-                    ) ||
-
-                    CollisionDetector.isCollide(
-                        projectile.getList().get(i).getCoor().getX(),
-                        projectile.getList().get(i).getCoor().getY(),
-                        myPanel.getProjectileWidth(),
-                        myPanel.getProjectileHeight(),
-                        myPanel.getBlockerX(),
-                        myPanel.getBlockerY(),
-                        myPanel.getBlockerHorzWidth(),
-                        myPanel.getBlockerHorzHeight()
-                    )) {
-
-                    System.out.println("Guard is hit");
-                    projectile.getList().remove(i);
-                    i--;
-                }
-            }
-        });
-    }
-}, 
-0, 
-17);
+            });
+        }
+            }, 
+            0, 
+            17);
 
 
             projectileTimer.scheduleAtFixedRate(new TimerTask() {
@@ -100,12 +115,23 @@ public class Game
                     // Always update Swing components on the EDT:
                     SwingUtilities.invokeLater(() -> {
                         projectile.bulletCreation();
-                        projectile.updatePosition();
                     });
                 }
             }, 
             0, 
             570);
+
+            projectileTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    // Always update Swing components on the EDT:
+                    SwingUtilities.invokeLater(() -> {
+                        projectile.updatePosition();
+                    });
+                }
+            }, 
+            0,
+            33);
         });
     }
 }

@@ -71,9 +71,9 @@ This will:
 
 ## Upcoming Updates
 
-1. Future code optimizations
-2. Add score manager system
-3. Add life system
+1. Future code optimizations for maximum efficiency
+2. Add different game modes
+3. Heart character selection
 
 ---
 

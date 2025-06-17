@@ -46,6 +46,5 @@ echo =============================
 
 java -cp Out miniUndertaleGame.Main
 
-pause
 endlocal
 
